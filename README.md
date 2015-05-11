@@ -13,7 +13,7 @@ var bedrock = require('bedrock');
 var store = require('bedrock-credentials-mongodb');
 
 // insert a credential into storage
-store.insert(credential, callback);
+store.insert(actor, credential, callback);
 
 // get a credential from storage
-store.get(query, callback);
+store.get(actor, query, callback);
