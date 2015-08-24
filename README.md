@@ -17,3 +17,6 @@ store.insert(actor, credential, callback);
 
 // get a credential from storage
 store.get(actor, query, callback);
+```
+
+[bedrock]: https://github.com/digitalbazaar/bedrock
