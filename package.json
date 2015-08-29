@@ -4,7 +4,7 @@
   "description": "Bedrock credentials mongodb storage module",
   "main": "./lib/store",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test/test.js test"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,8 @@
   },
   "directories": {
     "lib": "./lib"
+  },
+  "devDependencies": {
+    "uuid": "^2.0.2"
   }
 }
