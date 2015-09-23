@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/digitalbazaar/bedrock-credentials-mongodb",
   "dependencies": {
-    "async": "~0.9.0",
+    "async": "^1.4.2",
     "lodash": "^3.9.0"
   },
   "peerDependencies": {
