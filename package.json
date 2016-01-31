@@ -1,6 +1,6 @@
 {
   "name": "bedrock-credentials-mongodb",
-  "version": "0.0.1-dev",
+  "version": "1.0.0",
   "description": "Bedrock credentials mongodb storage module",
   "main": "./lib/store",
   "scripts": {
@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/digitalbazaar/bedrock-credentials-mongodb",
   "dependencies": {
-    "async": "^1.4.2",
-    "lodash": "^3.9.0"
+    "async": "^1.5.2",
+    "lodash": "^4.0.0"
   },
   "peerDependencies": {
     "bedrock": "^1.0.0",
