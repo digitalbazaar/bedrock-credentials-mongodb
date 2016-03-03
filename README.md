@@ -2,6 +2,10 @@
 
 A [bedrock][] module that stores credentials in a MongoDB database.
 
+## Requirements
+
+- npm v3+
+
 ## Quick Examples
 
 ```
