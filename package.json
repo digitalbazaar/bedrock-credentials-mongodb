@@ -1,6 +1,6 @@
 {
   "name": "bedrock-credentials-mongodb",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "description": "Bedrock credentials mongodb storage module",
   "main": "./lib/store",
   "scripts": {
