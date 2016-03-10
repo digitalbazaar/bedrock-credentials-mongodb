@@ -29,6 +29,7 @@
     "bedrock": "^1.0.0",
     "bedrock-permission": "^2.0.0",
     "bedrock-mongodb": "^2.0.0",
+    "jsonld": "^0.4.6",
     "lodash": "^4.0.0"
   },
   "peerDependencies": {
