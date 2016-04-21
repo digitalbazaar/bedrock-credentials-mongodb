@@ -1,7 +1,8 @@
 /*
- * Copyright (c) 2015 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-216 Digital Bazaar, Inc. All rights reserved.
  */
-
+/* globals describe, before, after, it, should, beforeEach, afterEach */
+/* jshint node: true */
 'use strict';
 
 var _ = require('lodash');
@@ -9,10 +10,12 @@ var async = require('async');
 var bedrock = require('bedrock');
 var config = bedrock.config['credentials-mongodb'];
 var db = require('bedrock-mongodb');
-var uuid = require('node-uuid');
+var helpers = require('./helpers');
 var store = require('../lib/store');
-var COLLECTION_NAMES = ['credentialProvider', 'credentialConsumer'];
+var uuid = require('node-uuid').v4;
 var savedSettings = {};
+
+var COLLECTION_NAMES = ['credentialProvider', 'credentialConsumer'];
 
 before(function(done) {
   savedSettings.provider = {};
@@ -32,14 +35,14 @@ after(function(done) {
 });
 
 // FIXME: these test only work when this module is tested in isolation
-describe.skip('bedrock-credentials-mongodb initialization', function() {
+describe('bedrock-credentials-mongodb initialization', function() {
 
   beforeEach(function(done) {
     // restore these values to defaults found in the config
     config.provider.enable = true;
     config.consumer.enable = true;
-    dropCollections(function() {
-      listCollections(function(err, collectionNames) {
+    helpers.dropCollections(function() {
+      helpers.listCollections(function(err, collectionNames) {
         _.intersection(collectionNames, COLLECTION_NAMES)
           .should.have.length(0);
         done();
@@ -48,12 +51,12 @@ describe.skip('bedrock-credentials-mongodb initialization', function() {
   });
 
   afterEach(function(done) {
-    dropCollections(done);
+    helpers.dropCollections(done);
   });
 
   it('should create provider and consumer stores', function(done) {
     bedrock.events.emit('bedrock.start', function() {
-      listCollections(function(err, collectionNames) {
+      helpers.listCollections(function(err, collectionNames) {
         _.intersection(collectionNames, COLLECTION_NAMES)
           .should.have.length(2);
         done();
@@ -65,7 +68,7 @@ describe.skip('bedrock-credentials-mongodb initialization', function() {
     config.provider.enable = true;
     config.consumer.enable = false;
     bedrock.events.emit('bedrock.start', function() {
-      listCollections(function(err, collectionNames) {
+      helpers.listCollections(function(err, collectionNames) {
         _.intersection(collectionNames, COLLECTION_NAMES)
           .should.have.length(1);
         _.includes(collectionNames, 'credentialProvider').should.be.true;
@@ -78,7 +81,7 @@ describe.skip('bedrock-credentials-mongodb initialization', function() {
     config.provider.enable = false;
     config.consumer.enable = true;
     bedrock.events.emit('bedrock.start', function() {
-      listCollections(function(err, collectionNames) {
+      helpers.listCollections(function(err, collectionNames) {
         _.intersection(collectionNames, COLLECTION_NAMES)
           .should.have.length(1);
         _.includes(collectionNames, 'credentialConsumer').should.be.true;
@@ -89,13 +92,13 @@ describe.skip('bedrock-credentials-mongodb initialization', function() {
 
 });
 
-describe.skip('bedrock-credentials-mongodb operations', function() {
+describe('bedrock-credentials-mongodb operations', function() {
   beforeEach(function(done) {
     config.provider.enable = true;
     config.consumer.enable = false;
     async.series([
       function(callback) {
-        dropCollections(callback);
+        helpers.dropCollections(callback);
       },
       function(callback) {
         bedrock.events.emit('bedrock.start', callback);
@@ -104,25 +107,25 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
   afterEach(function(done) {
-    dropCollections(done);
+    helpers.dropCollections(done);
   });
 
   it('should insert a credential without alteration', function(done) {
-    var credential = generateCredentials(1)[0];
+    var credential = helpers.generateCredentials(1)[0];
     store.provider.insert(null, credential, function(err, result) {
-      result.id.should.exist;
+      should.exist(result.id);
       result.id.should.be.a('string');
-      result.issuer.should.exist;
+      should.exist(result.issuer);
       result.issuer.should.be.a('string');
-      result.recipient.should.exist;
+      should.exist(result.recipient);
       result.recipient.should.be.a('string');
-      result.meta.should.exist;
+      should.exist(result.meta);
       result.meta.should.be.an('object');
-      result.meta.created.should.exist;
+      should.exist(result.meta.created);
       result.meta.created.should.be.a('number');
-      result.meta.updated.should.exist;
+      should.exist(result.meta.updated);
       result.meta.updated.should.be.a('number');
-      result.credential.should.exist;
+      should.exist(result.credential);
       result.credential.should.be.an('object');
       JSON.stringify(result.credential)
         .should.equal(JSON.stringify(credential));
@@ -131,7 +134,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
   it('should retrieve a credential by id', function(done) {
-    var credential = generateCredentials(1)[0];
+    var credential = helpers.generateCredentials(1)[0];
     async.series([
       function(callback) {
         store.provider.insert(null, credential, callback);
@@ -150,31 +153,31 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
 
   it('should return an error if credential id is not found', function(done) {
     // there are no credentials in the database
-    var credential = generateCredentials(1)[0];
+    var credential = helpers.generateCredentials(1)[0];
     store.provider.get(
       null, credential.id, function(err, result) {
-        err.should.exist;
+        should.exist(err);
         err.should.be.an('object');
-        err.name.should.exist;
+        should.exist(err.name);
         err.name.should.be.a('string');
         err.name.should.equal('NotFound');
-        err.message.should.exist;
+        should.exist(err.message);
         err.message.should.be.a('string');
         err.message.should.equal('Credential not found.');
-        err.details.should.exist;
+        should.exist(err.details);
         err.details.should.be.an('object');
-        err.details.id.should.exist;
+        should.exist(err.details.id);
         err.details.id.should.equal(credential.id);
-        err.details.httpStatusCode.should.exist;
+        should.exist(err.details.httpStatusCode);
         err.details.httpStatusCode.should.equal(404);
-        err.details.public.should.exist;
+        should.exist(err.details.public);
         err.details.public.should.be.true;
         done();
       });
   });
 
   it('should throw error on inserting a duplicate credential', function(done) {
-    var credential = generateCredentials(1)[0];
+    var credential = helpers.generateCredentials(1)[0];
     async.series([
       function(callback) {
         store.provider.insert(null, credential, function(err, result) {
@@ -185,7 +188,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
       },
       function(callback) {
         store.provider.insert(null, credential, function(err, result) {
-          err.should.exist;
+          should.exist(err);
           db.isDuplicateError(err).should.be.true;
           callback();
         });
@@ -201,7 +204,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
   it('should retrieve all credentials based on empty query', function(done) {
-    var credentials = generateCredentials(3);
+    var credentials = helpers.generateCredentials(3);
     async.series([
       function(callback) {
         async.each(credentials, function(credential, callback) {
@@ -219,7 +222,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
   it('should retrieve a credential based on query by id', function(done) {
-    var credentials = generateCredentials(3);
+    var credentials = helpers.generateCredentials(3);
     async.series([
       function(callback) {
         async.each(credentials, function(credential, callback) {
@@ -244,7 +247,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
   it('should retrieve only specified fields', function(done) {
-    var credentials = generateCredentials(1);
+    var credentials = helpers.generateCredentials(1);
     async.series([
       function(callback) {
         async.each(credentials, function(credential, callback) {
@@ -282,9 +285,10 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
     var credentialCounts = [3, 5, 7];
     // each batch will have a unique recipient and record count
     _.forEach(credentialCounts, function(count) {
-      var recipient = uuid.v4();
+      var recipient = uuid();
       credentialBatches[recipient] = count;
-      credentials = credentials.concat(generateCredentials(count, recipient));
+      credentials =
+        credentials.concat(helpers.generateCredentials(count, recipient));
     });
     async.series([
       function(callback) {
@@ -311,7 +315,7 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   it('should compose an identity', function(done) {
     var recipient = uuid.v4();
     var recipientDid = 'did:' + recipient;
-    var credentials = generateCredentials(3, recipient);
+    var credentials = helpers.generateCredentials(3, recipient);
     var template = {
       email: ''
     };
@@ -340,43 +344,3 @@ describe.skip('bedrock-credentials-mongodb operations', function() {
   });
 
 });
-
-function generateCredentials(quantity, recipientDid) {
-  // all credentials will have the same recipient
-  var recipient = recipientDid || uuid.v4();
-  var credentials = [];
-  for(var i = 0; i < quantity; i++) {
-    var credential = bedrock.util.clone(config.mock.credentialTemplate);
-    credential.id = 'did:' + uuid.v4();
-    credential.claim.id = 'did:' + recipient;
-    credentials.push(credential);
-  }
-  return credentials;
-};
-
-function dropCollections(callback) {
-  async.each(COLLECTION_NAMES, function(collection, callback) {
-    if(!db.collections[collection]) {
-      return callback();
-    }
-    db.collections[collection].drop(function(err, result) {
-      delete db.collections[collection];
-      callback(err);
-    });
-  }, function(err) {
-    // ignore 'ns not found' error
-    if(err && err.message !== 'ns not found') {
-      return callback(err);
-    }
-    callback();
-  });
-};
-
-function listCollections(callback) {
-  db.client.collections(function(err, reply) {
-    var collectionNames = reply.map(function(obj) {
-      return obj.s.name;
-    });
-    callback(err, collectionNames);
-  });
-};
