@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2016-05-29
+
+### Added
+- **BREAKING**: Add unique `credential.issuer`+`credential.referenceId` index.
+
 ## [2.1.0] - 2016-04-26
 
 ### Added
@@ -16,9 +21,5 @@
 
 ### Added
 - Basic Store API and provider and consumer built-in configurable stores.
-- See git history for other changes.
 
-[Unreleased]: https://github.com/digitalbazaar/bedrock-credentials-mongodb/compare/2.1.0...HEAD
-[2.1.0]: https://github.com/digitalbazaar/bedrock-credentials-mongodb/compare/2.0.0...2.1.0
-[2.0.0]: https://github.com/digitalbazaar/bedrock-credentials-mongodb/compare/1.0.0...2.0.0
-[1.0.0]: https://github.com/digitalbazaar/bedrock-credentials-mongodb/compare/0.0.0...1.0.0
+- See git history for other changes.
