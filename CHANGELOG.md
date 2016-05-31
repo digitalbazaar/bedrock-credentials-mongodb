@@ -1,5 +1,10 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.0.2 - 2016-05-31
+
+### Fixed
+- Fix-up permission check.
+
 ## 3.0.1 - 2016-05-30
 
 ### Fixed
