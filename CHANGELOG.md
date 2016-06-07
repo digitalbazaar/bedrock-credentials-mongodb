@@ -1,5 +1,7 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.0.3 - 2016-06-07
+
 ### Changed
 - Update dependencies.
 
