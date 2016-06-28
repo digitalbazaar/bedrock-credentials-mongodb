@@ -1,5 +1,10 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.1.0 - 2016--6-28
+
+### Added
+- Implement remove API.
+
 ## 3.0.3 - 2016-06-07
 
 ### Changed
