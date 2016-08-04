@@ -12,30 +12,25 @@ var config = bedrock.config['credentials-mongodb'];
 var db = require('bedrock-mongodb');
 var helpers = require('./helpers');
 var store = require('../../lib/store');
-var uuid = require('node-uuid').v4;
+var uuid = require('uuid').v4;
 var savedSettings = {};
 
 var COLLECTION_NAMES = ['credentialProvider', 'credentialConsumer'];
 
-before(function(done) {
+before(function() {
   savedSettings.provider = {};
   savedSettings.consumer = {};
   savedSettings.provider.enable = config.provider.enable;
   savedSettings.consumer.enable = config.consumer.enable;
-  done();
 });
 
-after(function(done) {
+after(function() {
   config.provider.enable = savedSettings.provider.enable;
   config.consumer.enable = savedSettings.consumer.enable;
-  // allow module to create collections
-  // FIXME: this line is causing problems when this suite is run with other mods
-  // bedrock.events.emit('bedrock.start', done);
-  done();
 });
 
-// FIXME: these test only work when this module is tested in isolation
-describe('bedrock-credentials-mongodb initialization', function() {
+// NOTE: these test only work when this module is tested in isolation
+describe.skip('bedrock-credentials-mongodb initialization', function() {
 
   beforeEach(function(done) {
     // restore these values to defaults found in the config
@@ -93,21 +88,8 @@ describe('bedrock-credentials-mongodb initialization', function() {
 });
 
 describe('bedrock-credentials-mongodb operations', function() {
-  beforeEach(function(done) {
-    config.provider.enable = true;
-    config.consumer.enable = false;
-    async.series([
-      function(callback) {
-        helpers.dropCollections(callback);
-      },
-      function(callback) {
-        bedrock.events.emit('bedrock.start', callback);
-      }
-    ], done);
-  });
-
   afterEach(function(done) {
-    helpers.dropCollections(done);
+    helpers.removeCollections(done);
   });
 
   it('should insert a credential without alteration', function(done) {
@@ -181,8 +163,6 @@ describe('bedrock-credentials-mongodb operations', function() {
     async.series([
       function(callback) {
         store.provider.insert(null, credential, function(err, result) {
-          // console.log('ERROR', err);
-          // console.log('RESULT', result);
           callback();
         });
       },
