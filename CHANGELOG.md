@@ -1,5 +1,8 @@
 # bedrock-credentials-mongodb ChangeLog
 
+### Added
+- Add ability to include custom meta data via `store.insert`.
+
 ## 3.1.0 - 2016--6-28
 
 ### Added
