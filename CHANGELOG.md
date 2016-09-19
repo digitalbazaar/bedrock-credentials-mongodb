@@ -1,5 +1,10 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.2.1 - 2016-09-19
+
+### Changed
+- Restructure test framework for CI.
+
 ## 3.2.0 - 2016-08-12
 
 ### Added
