@@ -11,7 +11,7 @@ var bedrock = require('bedrock');
 var config = bedrock.config['credentials-mongodb'];
 var db = require('bedrock-mongodb');
 var helpers = require('./helpers');
-var store = require('../../lib/store');
+var store = require('bedrock-credentials-mongodb');
 var uuid = require('uuid').v4;
 var savedSettings = {};
 

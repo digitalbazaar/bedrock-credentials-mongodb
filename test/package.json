@@ -1,9 +1,11 @@
 {
-  "name": "bedrock-credentials-mongodb",
-  "version": "3.2.1-0",
-  "description": "Bedrock credentials mongodb storage module",
-  "main": "./lib",
-  "scripts": {},
+  "name": "bedrock-credentials-mongodb-test",
+  "version": "0.0.1-0",
+  "description": "Bedrock credentials mongodb storage module test",
+  "main": "test",
+  "scripts": {
+    "test": "node --preserve-symlinks test.js test"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/digitalbazaar/bedrock-credentials-mongodb"
@@ -24,15 +26,12 @@
   "homepage": "https://github.com/digitalbazaar/bedrock-credentials-mongodb",
   "dependencies": {
     "async": "^1.5.2",
-    "jsonld": "^0.4.6",
-    "lodash": "^4.0.0"
-  },
-  "peerDependencies": {
     "bedrock": "^1.0.0",
     "bedrock-permission": "^2.0.0",
-    "bedrock-mongodb": "^3.0.0"
-  },
-  "directories": {
-    "lib": "./lib"
+    "bedrock-mongodb": "^3.0.0",
+    "bedrock-test": "^1.0.0",
+    "jsonld": "^0.4.6",
+    "lodash": "^4.0.0",
+    "uuid": "^2.0.2"
   }
 }
