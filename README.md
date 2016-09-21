@@ -1,5 +1,7 @@
 # bedrock-credentials-mongodb
 
+![build status](http://ci.digitalbazaar.com/buildStatus/icon?job=bedrock-credentials-mongodb)
+
 A [bedrock][] module that stores credentials in a MongoDB database.
 
 ## Requirements
