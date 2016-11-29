@@ -1,5 +1,10 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.2.2 - 2016-11-29
+
+### Changed
+- Change permission check on `count` API.
+
 ## 3.2.1 - 2016-09-19
 
 ### Changed
