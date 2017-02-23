@@ -1,5 +1,12 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.3.0 - 2017-02-23
+
+### Added
+- Add `events` to mongo stores.
+- Add `insert` and `postInsert` events for modifying credential
+  or meta data prior to insertion.
+
 ## 3.2.2 - 2016-11-29
 
 ### Changed
