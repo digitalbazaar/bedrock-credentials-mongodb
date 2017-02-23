@@ -24,6 +24,7 @@
   "homepage": "https://github.com/digitalbazaar/bedrock-credentials-mongodb",
   "dependencies": {
     "async": "^1.5.2",
+    "async-node-events": "~0.0.7",
     "jsonld": "^0.4.6",
     "lodash": "^4.0.0"
   },

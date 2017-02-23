@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2017 Digital Bazaar, Inc. All rights reserved.
  */
 /* jshint node: true */
 'use strict';
@@ -24,6 +24,7 @@ helpers.generateCredentials = function(quantity, recipientDid) {
     var credential = bedrock.util.clone(mockData.credentialTemplate);
     credential.id = 'did:' + uuid();
     credential.claim.id = 'did:' + recipient;
+    credential.sysStatus = 'active';
     credentials.push(credential);
   }
   return credentials;

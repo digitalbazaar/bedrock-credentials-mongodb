@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2015-2017 Digital Bazaar, Inc. All rights reserved.
  */
 /* globals describe, before, after, it, should, beforeEach, afterEach */
 /* jshint node: true, -W030 */
@@ -107,6 +107,34 @@ describe('bedrock-credentials-mongodb operations', function() {
       result.meta.created.should.be.a('number');
       should.exist(result.meta.updated);
       result.meta.updated.should.be.a('number');
+      should.exist(result.credential);
+      result.credential.should.be.an('object');
+      JSON.stringify(result.credential)
+        .should.equal(JSON.stringify(credential));
+      done();
+    });
+  });
+
+  it('should insert a credential with meta alteration', function(done) {
+    store.provider.events.once('insert', function(event) {
+      event.meta.test = 'foo';
+    });
+    var credential = helpers.generateCredentials(1)[0];
+    store.provider.insert(null, credential, function(err, result) {
+      should.exist(result.id);
+      result.id.should.be.a('string');
+      should.exist(result.issuer);
+      result.issuer.should.be.a('string');
+      should.exist(result.recipient);
+      result.recipient.should.be.a('string');
+      should.exist(result.meta);
+      result.meta.should.be.an('object');
+      should.exist(result.meta.created);
+      result.meta.created.should.be.a('number');
+      should.exist(result.meta.updated);
+      result.meta.updated.should.be.a('number');
+      should.exist(result.meta.test);
+      result.meta.test.should.equal('foo');
       should.exist(result.credential);
       result.credential.should.be.an('object');
       JSON.stringify(result.credential)
