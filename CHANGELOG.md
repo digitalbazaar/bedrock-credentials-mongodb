@@ -1,5 +1,10 @@
 # bedrock-credentials-mongodb ChangeLog
 
+## 3.3.1 - 2017-03-20
+
+### Changed
+- Add error logging.
+
 ## 3.3.0 - 2017-02-23
 
 ### Added
