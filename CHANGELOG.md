@@ -1,5 +1,8 @@
 # bedrock-credentials-mongodb ChangeLog
 
+### Changed
+- Update `bedrock-mongodb` peer dependency.
+
 ## 3.3.1 - 2017-03-20
 
 ### Changed
